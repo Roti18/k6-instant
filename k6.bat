@@ -53,7 +53,9 @@ echo Running: %K6_CMD%
 %K6_CMD%
 
 if exist "reports\logs.json" (
-    powershell -Command "$c = Get-Content reports\logs.json; if($c) { '[' + ($c -join ',') + ']' | Set-Content reports\logs.json } else { '[]' | Set-Content reports\logs.json }"
+    echo [INFO] Finalizing logs...
+    timeout /t 1 /nobreak >nul
+    powershell -Command "$c = Get-Content reports\logs.json -ErrorAction SilentlyContinue; if($c) { '[' + ($c -join ',') + ']' | Set-Content reports\logs.json -Force } else { '[]' | Set-Content reports\logs.json -Force }"
 )
 
 echo.
