@@ -1,68 +1,68 @@
-# K6 Load Testing Project
+# K6 Instant Pro
 
-Project ini dirancang untuk menjalankan pengujian beban (load testing) menggunakan k6 dengan cara yang instan, fleksibel, dan memiliki laporan visual yang premium.
+This project is designed to run k6 load tests instantly and flexibly with premium visual reporting.
 
-## Persyaratan
-- k6 terinstal di sistem Anda (dapat diakses melalui command line).
-- PowerShell atau Command Prompt.
+## Requirements
+- k6 installed on your system (accessible via command line).
+- PowerShell or Command Prompt.
 
-## Struktur Project
-- `tests/`: Berisi konfigurasi beban kerja (smoke, slow, hard, spike, soak).
-- `utils/`: Berisi helper untuk HTTP, variabel lingkungan, dan generator laporan.
-- `reports/`: Lokasi penyimpanan hasil pengujian (HTML dan JSON).
-- `k6.bat`: Command wrapper utama untuk menjalankan pengujian.
+## Project Structure
+- `tests/`: Contains workload configurations (smoke, slow, hard, spike, soak).
+- `utils/`: Helper modules for HTTP, environment variables, and report generation.
+- `reports/`: Storage for test results (HTML and JSON).
+- `k6.bat`: Main command wrapper to execute tests.
 
-## Cara Penggunaan
+## Usage
 
-Gunakan perintah `.\k6` dengan format berikut:
+Use the `.\k6` command with the following format:
 
 ```bash
-.\k6 [nama_test] [url_target] [daftar_endpoint] [api_key]
+.\k6 [test_name] [target_url] [paths_list] [api_key]
 ```
 
-### Contoh Perintah
+### Command Examples
 
-1. Menjalankan Smoke Test pada Root:
+1. Running a Smoke Test on Root:
 ```bash
 .\k6 smoke http://localhost:3000
 ```
 
-2. Menjalankan Test pada Banyak Endpoint Sekaligus:
+2. Running a Test on Multiple Endpoints Simultaneously:
 ```bash
 .\k6 smoke http://localhost:3000 tracks,albums,users
 ```
 
-3. Menjalankan Test dengan API Key:
+3. Running a Test with an API Key:
 ```bash
 .\k6 smoke http://localhost:3000 tracks,albums secret123
 ```
 
-4. Menjalankan Hard Test (Stress Test) untuk spesifik endpoint:
+4. Running a Hard Test (Stress Test) for specific endpoints:
 ```bash
 .\k6 hard http://localhost:3000 login,profile
 ```
 
-5. Membersihkan Folder Laporan:
+5. Cleaning the Reports Folder:
 ```bash
 .\k6 clean
 ```
 
-## Jenis Pengujian (Test Profiles)
-- **smoke**: 1 user, durasi 10 detik. Cocok untuk verifikasi cepat apakah API berjalan.
-- **slow**: Konfigurasi constant arrival rate. Cocok untuk menguji stabilitas jangka panjang.
-- **hard**: Stress test dengan peningkatan beban bertahap hingga beban sangat tinggi.
-- **spike**: Lonjakan trafik tiba-tiba untuk menguji ketahanan server terhadap kejutan mendadak.
-- **soak**: Beban menengah dalam durasi lama untuk mencari kebocoran memori (memory leak).
+## Test Profiles
+- **smoke**: 1 user, 10s duration. Best for quick verification if the API is up.
+- **slow**: Constant arrival rate configuration. Best for long-term stability testing.
+- **hard**: Stress test with gradual load increases up to high levels.
+- **spike**: Sudden traffic surges to test server resilience against unexpected shocks.
+- **soak**: Sustained medium load over long durations to find memory leaks.
 
-## Laporan Pengujian
-Setiap kali pengujian selesai, sistem akan otomatis memperbarui laporan visual di:
+## Test Reporting
+After each test execution, a premium visual report is automatically updated at:
 `reports/summary.html`
 
-Buka file tersebut di browser untuk melihat statistik latency (P95), success rate, dan metrik lainnya dengan tampilan dark mode yang modern.
+Open this file in your browser to see latency statistics (P95), success rates, and other metrics in a modern dark-mode dashboard.
 
-## Konfigurasi Default
-Jika argumen tidak diisi lengkap, sistem menggunakan nilai default berikut:
-- **Nama Test**: (Wajib diisi)
-- **URL Target**: (Wajib diisi)
-- **Daftar Endpoint**: `/` (root)
-- **API Key**: Menggunakan nilai default di `utils/env.js`
+## Default Configuration
+If arguments are not fully provided, the system uses these defaults:
+- **Test Name**: (Required)
+- **Target URL**: (Required)
+- **Paths List**: `/` (root)
+- **API Key**: Uses the default value from `utils/env.js`
