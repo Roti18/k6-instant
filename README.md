@@ -7,10 +7,10 @@ Project ini dirancang untuk menjalankan pengujian beban (load testing) menggunak
 - PowerShell atau Command Prompt.
 
 ## Struktur Project
-- tests/: Berisi konfigurasi beban kerja (smoke, slow, hard).
-- utils/: Berisi helper untuk HTTP, variabel lingkungan, dan generator laporan.
-- reports/: Lokasi penyimpanan hasil pengujian (HTML dan JSON).
-- k6.bat/: Command wrapper utama untuk menjalankan pengujian.
+- `tests/`: Berisi konfigurasi beban kerja (smoke, slow, hard, spike, soak).
+- `utils/`: Berisi helper untuk HTTP, variabel lingkungan, dan generator laporan.
+- `reports/`: Lokasi penyimpanan hasil pengujian (HTML dan JSON).
+- `k6.bat`: Command wrapper utama untuk menjalankan pengujian.
 
 ## Cara Penggunaan
 
@@ -47,24 +47,22 @@ Gunakan perintah `.\k6` dengan format berikut:
 .\k6 clean
 ```
 
-
 ## Jenis Pengujian (Test Profiles)
-- smoke: 1 user, durasi 10 detik. Cocok untuk verifikasi cepat.
-- slow: Konfigurasi constant arrival rate. Cocok untuk menguji stabilitas jangka panjang.
-- hard: Stress test dengan peningkatan beban bertahap hingga beban sangat tinggi.
-- spike: Lonjakan trafik tiba-tiba untuk menguji ketahanan server terhadap kejutan.
-- soak: Beban menengah dalam durasi lama untuk mencari kebocoran memori (memory leak).
-
+- **smoke**: 1 user, durasi 10 detik. Cocok untuk verifikasi cepat apakah API berjalan.
+- **slow**: Konfigurasi constant arrival rate. Cocok untuk menguji stabilitas jangka panjang.
+- **hard**: Stress test dengan peningkatan beban bertahap hingga beban sangat tinggi.
+- **spike**: Lonjakan trafik tiba-tiba untuk menguji ketahanan server terhadap kejutan mendadak.
+- **soak**: Beban menengah dalam durasi lama untuk mencari kebocoran memori (memory leak).
 
 ## Laporan Pengujian
 Setiap kali pengujian selesai, sistem akan otomatis memperbarui laporan visual di:
-reports/summary.html
+`reports/summary.html`
 
 Buka file tersebut di browser untuk melihat statistik latency (P95), success rate, dan metrik lainnya dengan tampilan dark mode yang modern.
 
 ## Konfigurasi Default
 Jika argumen tidak diisi lengkap, sistem menggunakan nilai default berikut:
-- Nama Test: (Wajib diisi)
-- URL Target: (Wajib diisi)
-- Daftar Endpoint: / (root)
-- API Key: Menggunakan nilai default di utils/env.js
+- **Nama Test**: (Wajib diisi)
+- **URL Target**: (Wajib diisi)
+- **Daftar Endpoint**: `/` (root)
+- **API Key**: Menggunakan nilai default di `utils/env.js`
