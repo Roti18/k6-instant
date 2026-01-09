@@ -1,6 +1,5 @@
 import { get } from "../utils/http.js";
 import { generateCustomReport } from "../utils/reporter.js";
-import { getLogs } from "../utils/logger.js";
 
 export const options = {
     stages: [
@@ -21,10 +20,8 @@ export default function () {
 }
 
 export function handleSummary(data) {
-    const logs = getLogs();
     return {
-        "reports/summary.html": generateCustomReport(data, logs),
+        "reports/summary.html": generateCustomReport(data),
         "reports/summary.json": JSON.stringify(data),
-        "reports/logs.json": JSON.stringify(logs, null, 2),
     };
 }
