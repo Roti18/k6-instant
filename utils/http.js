@@ -1,5 +1,6 @@
 import http from "k6/http";
 import { BASE_URL, API_KEY } from "./env.js";
+import { log } from "./logger.js";
 
 const headers = {
   "Content-Type": "application/json",
@@ -33,8 +34,28 @@ if (API_KEY) {
   headers["X-XSRF-Token"] = API_KEY;
 }
 
-export const get = (path, params = {}) =>
-  http.get(`${BASE_URL}${path}`, { headers, ...params });
+export const get = (path, params = {}) => {
+  const url = `${BASE_URL}${path}`;
+  const res = http.get(url, { headers, ...params });
 
-export const post = (path, body, params = {}) =>
-  http.post(`${BASE_URL}${path}`, JSON.stringify(body), { headers, ...params });
+  if (res.status >= 400) {
+    log("error", `GET ${path} failed with status ${res.status}`, { status: res.status, url });
+  } else {
+    log("success", `GET ${path} success`, { status: res.status });
+  }
+
+  return res;
+};
+
+export const post = (path, body, params = {}) => {
+  const url = `${BASE_URL}${path}`;
+  const res = http.post(url, JSON.stringify(body), { headers, ...params });
+
+  if (res.status >= 400) {
+    log("error", `POST ${path} failed with status ${res.status}`, { status: res.status, url });
+  } else {
+    log("success", `POST ${path} success`, { status: res.status });
+  }
+
+  return res;
+};
