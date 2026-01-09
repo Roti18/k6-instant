@@ -27,5 +27,6 @@ export default function () {
 export function handleSummary(data) {
   return {
     "reports/summary.html": generateCustomReport(data),
+    "reports/summary.json": JSON.stringify(data),
   };
 }
