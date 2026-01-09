@@ -6,9 +6,11 @@ const headers = {
 };
 
 if (API_KEY) {
-  headers["Authorization"] = `Bearer ${API_KEY}`;
+  headers["Authorization"] = API_KEY.startsWith("Bearer ") ? API_KEY : `Bearer ${API_KEY}`;
   headers["X-API-Key"] = API_KEY;
   headers["x-api-key"] = API_KEY;
+  headers["api-key"] = API_KEY;
+  headers["X-Auth-Token"] = API_KEY;
 }
 
 export const get = (path, params = {}) =>
