@@ -24,6 +24,7 @@ if "%TEST_FILE%"=="" (
 if "%PATHS%"=="" set PATHS=/
 
 if not exist "reports" mkdir reports
+if exist "reports\logs.json" del /q reports\logs.json
 
 if exist "tests\%TEST_FILE%.test.js" (
     set FINAL_PATH=tests\%TEST_FILE%.test.js
@@ -46,10 +47,14 @@ if not "%TARGET_API_KEY%"=="" (
     set K6_CMD=%K6_CMD% -e API_KEY=%TARGET_API_KEY%
 )
 
-set K6_CMD=%K6_CMD% --summary-export=reports\summary.json
+set K6_CMD=%K6_CMD% --summary-export=reports\summary.json --log-output=file=reports\logs.json --log-format=json
 
 echo Running: %K6_CMD%
 %K6_CMD%
+
+if exist "reports\logs.json" (
+    powershell -Command "$c = Get-Content reports\logs.json; if($c) { '[' + ($c -join ',') + ']' | Set-Content reports\logs.json } else { '[]' | Set-Content reports\logs.json }"
+)
 
 echo.
 if exist "reports\summary.html" (
