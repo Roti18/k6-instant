@@ -1,5 +1,7 @@
 # K6 Instant Pro
 
+![Preview](preview.png)
+
 This project is designed to run k6 load tests instantly and flexibly with premium visual reporting.
 
 ## Requirements
@@ -42,10 +44,27 @@ Use the `.\k6` command with the following format:
 .\k6 hard http://localhost:3000 login,profile
 ```
 
-5. Cleaning the Reports Folder:
+5. View the HTML Report (File mode):
+```bash
+.\k6 report
+```
+
+6. View the HTML Report (Server mode - Recommended for logs):
+```bash
+.\k6 server
+```
+
+7. Cleaning the Reports Folder:
 ```bash
 .\k6 clean
 ```
+
+### Shortcuts via npm
+If you prefer using `npm`, you can use these shortcuts:
+- `npm run k6 -- smoke http://localhost:3000` (Run test)
+- `npm run report` (Open file directly)
+- `npm run server` (Live preview with logs)
+- `npm run clean` (Clear all report files)
 
 ## Test Profiles
 - **smoke**: 1 user, 10s duration. Best for quick verification if the API is up.
