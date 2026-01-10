@@ -5,10 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "k6": ".\k6.bat"
+    "k6": ".\\k6.bat",
+    "report": ".\\k6.bat report",
+    "server": ".\\k6.bat server",
+    "clean": ".\\k6.bat clean"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
 }
