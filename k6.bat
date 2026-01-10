@@ -24,7 +24,7 @@ if "%TEST_FILE%"=="server" (
 )
 
 if "%TEST_FILE%"=="report" (
-    echo [INFO] Opening offline report (Note: Logs might not load).
+    echo [INFO] Opening offline report - Note: Logs might not load.
     echo [TIP] For full logs, use: npm run server
     if exist "reports\summary.html" (
         start reports\summary.html
