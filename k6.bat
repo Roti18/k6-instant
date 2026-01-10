@@ -15,9 +15,29 @@ if "%TEST_FILE%"=="clean" (
     exit /b 0
 )
 
+if "%TEST_FILE%"=="server" (
+    echo [INFO] Starting report server at http://localhost:8080/summary.html
+    echo [INFO] Press Ctrl+C to stop
+    start http://localhost:8080/summary.html
+    npx http-server reports -p 8080
+    exit /b 0
+)
+
+if "%TEST_FILE%"=="report" (
+    echo [INFO] Opening offline report (Note: Logs might not load).
+    echo [TIP] For full logs, use: npm run server
+    if exist "reports\summary.html" (
+        start reports\summary.html
+    ) else (
+        echo [ERROR] Report not found. Run a test first.
+    )
+    exit /b 0
+)
+
 if "%TEST_FILE%"=="" (
-    echo Usage: k6 [test_name] [url] [paths] [api_key]
+    echo Usage: k6 [test_name^|report^|server^|clean] [url] [paths] [api_key]
     echo Example: k6 smoke http://localhost:3000 tracks,albums secret123
+    echo Example: k6 server
     exit /b 1
 )
 
